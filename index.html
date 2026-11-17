@@ -190,9 +190,15 @@ function put(c,id,d){mem[c][id]=d;if(db)db.collection(c==="companies"?c:c+"~"+ci
 let rt;function rerender(){const a=document.activeElement;if(a&&/INPUT|SELECT/.test(a.tagName)&&$("#main").contains(a)){clearTimeout(rt);rt=setTimeout(rerender,800);return}render()}
 const heard={};
 function listen(c,cn){db.collection(c==="companies"?c:c+"~"+cn).onSnapshot(s=>{const o={};s.docs.forEach(d=>o[d.id]=d.data());if(c==="companies"){mem.companies=o;Object.keys(o).forEach(id=>{if(!heard[id]){heard[id]=1;["capture","materiality","schema"].forEach(x=>listen(x,id))}})}else store[c][cn]=o;rerender()},()=>{})}
-async function init(){
- try{if(window.claude){db=await claude.use("db");const u=await claude.use("user");if(u&&u.id){const i=await u.id();if(i)uid=i}}}catch(e){db=null}
- saved=!!db;if(db)listen("companies");render()}
+async function save(name,rows){
+ const csv=rows.map(r=>r.map(c=>`"${String(c??"").replace(/"/g,'""')}"`).join(",")).join("\n");
+ const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8;"});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;a.download=name;
+ document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
 const filled=(k)=>{const v=(mem.capture[k]||{}).v;return v!==undefined&&v!==""};
 const secCount=s=>s.m.filter(m=>filled(year+"_"+m.id)).length;
 const num=k=>{const v=parseFloat((mem.capture[k]||{}).v);return isNaN(v)?null:v};
