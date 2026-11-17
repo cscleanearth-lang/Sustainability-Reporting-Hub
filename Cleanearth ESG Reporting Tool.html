@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cleanearth ESG Reporting Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDF2EF;--ink:#12302F;--mute:#5B706C;--panel:#FFFFFF;--line:#CBD8D3;--accent:#0E6B5C;--accent-ink:#FFFFFF;--gold:#C98F0A;--warn:#B4452C;--soft:#E1ECE8;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1B1A;--ink:#E3EEEA;--mute:#8FA8A2;--panel:#142726;--line:#264240;--accent:#4FC3A8;--accent-ink:#06201B;--gold:#E7B94A;--warn:#F08A6E;--soft:#1B3331;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D1B1A;--ink:#E3EEEA;--mute:#8FA8A2;--panel:#142726;--line:#264240;--accent:#4FC3A8;--accent-ink:#06201B;--gold:#E7B94A;--warn:#F08A6E;--soft:#1B3331;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;margin:0;letter-spacing:-.01em}
+.shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+aside{background:var(--ink);color:#E3EEEA;padding:22px 14px;display:flex;flex-direction:column;gap:4px}
+aside .brand{font:700 20px "Bricolage Grotesque",sans-serif;padding:0 10px 4px}
+aside .sub{font-size:12px;color:#9DB8B1;padding:0 10px 16px}
+aside .grp{font-size:12px;color:#9DB8B1;padding:14px 10px 4px}
+.nav{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;gap:8px;padding:9px 10px;border-radius:8px;font-size:14px;color:#E3EEEA}
+.nav:hover{background:rgba(255,255,255,.08)}
+.nav[aria-current=page]{background:#E3EEEA;color:#12302F;font-weight:600}
+.nav:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.nav small{opacity:.7}
+main{padding:24px clamp(16px,4vw,44px) 60px;max-width:1100px;width:100%}
+.top{display:flex;flex-wrap:wrap;gap:12px;align-items:end;justify-content:space-between;margin-bottom:22px}
+.top label{font-size:12px;color:var(--mute);display:block;margin-bottom:2px}
+.top input,.top select{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
+.top input{width:230px}
+h2{font-size:28px;margin-bottom:4px}
+.lede{color:var(--mute);margin:0 0 18px;max-width:62ch}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 18px}
+.row{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1.2fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.row:last-child{border:0}
+.row label{font-weight:500}
+.inp{display:flex;align-items:center;gap:8px}
+.inp input,.row>input,.survey select,.group select{font:inherit;width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.unit{font-size:12px;color:var(--mute);white-space:nowrap}
+.hint{font-size:12px;color:var(--mute);margin-top:3px}
+.up{color:var(--accent)}.down{color:var(--warn)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.card h3{font-size:17px;margin-bottom:8px}
+.bar{height:8px;border-radius:4px;background:var(--soft);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.big{font:700 34px "Bricolage Grotesque",sans-serif}
+.btn{font:inherit;font-weight:600;padding:9px 16px;border:0;border-radius:8px;background:var(--accent);color:var(--accent-ink);cursor:pointer}
+.btn.alt{background:var(--soft);color:var(--ink)}
+.group{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.group select{width:auto}
+.survey{display:grid;grid-template-columns:minmax(0,1.6fr) 1fr 1fr;gap:10px 12px;align-items:center}
+.survey .h{font-size:12px;color:var(--mute)}
+.survey .t{padding:6px 0;border-top:1px solid var(--line)}
+.mat{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px;align-items:start}
+.mat svg{width:100%;height:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.rank{list-style:none;margin:0;padding:0}
+.rank li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.rank b{min-width:22px;color:var(--mute)}
+.tag{margin-left:auto;font-size:12px;font-weight:600;color:var(--gold);white-space:nowrap}
+.empty{padding:26px 6px;color:var(--mute)}
+#toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;display:none;z-index:5}
+.note{background:var(--soft);border-radius:8px;padding:8px 12px;font-size:13px;margin-bottom:14px}
+.lnk{all:unset;cursor:pointer;color:var(--warn);font-size:12px;margin-left:8px;text-decoration:underline}
+.lnk:focus-visible{outline:2px solid var(--gold)}
+#nf-u,#nf-uo{font:inherit;width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+h3{font-size:18px}
+@media (max-width:820px){
+.shell{grid-template-columns:1fr}
+aside{flex-direction:row;overflow-x:auto;padding:10px;gap:4px;align-items:center}
+aside .brand,aside .sub,aside .grp{display:none}
+.nav{white-space:nowrap}
+.row{grid-template-columns:1fr}
+.mat{grid-template-columns:1fr}
+.survey{grid-template-columns:1fr 1fr}.survey .t{grid-column:1/-1;font-weight:500}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside id="nav" aria-label="Sections"></aside>
+<main>
+<div class="top">
+<div><label for="co">Company dashboard</label><select id="co"></select></div><div><button class="btn alt" data-v="companies">All companies</button></div>
+<div><label for="year">Reporting year</label><select id="year"></select></div>
+</div>
+<div id="note"></div>
+<div id="main"></div>
+</main>
+</div>
+<div id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const SECTIONS=[
+{id:"env",name:"Environment",intro:"Emissions, energy, water, waste and packaging for the reporting year.",m:`ghg1|Scope 1 emissions|tCO₂e
+ghg2|Scope 2 emissions|tCO₂e
+ghg3|Scope 3 emissions|tCO₂e
+en|Total energy consumption|GJ
+enr|Renewable share of energy|%
+sol|Solar energy generated|kWh
+ww|Water withdrawal|m³
+wc|Water consumption|m³
+wd|Water discharged|m³
+wq|Effluent discharged|m³
+wqp|Effluent quality parameters (BOD, COD, pH, TSS)|text
+wh|Hazardous waste generated|t
+wn|Non-hazardous waste generated|t
+wdv|Waste diverted from landfill|%
+wdm|Waste disposal methods used|text
+pk|Packaging materials used|t
+pkr|Packaging recyclability rate|%
+bio|Biodiversity: nearby sensitive areas and impacts|text`},
+{id:"soc",name:"Social",intro:"Workforce, health and safety, community and equity metrics.",m:`hc|Total employee headcount|people
+fem|Female share of workforce|%
+to|Employee turnover rate|%
+tor|Main reasons for departure|text
+ret|Retention rate|%
+pr|Promotion rates by gender, age and location|text
+tr|Training hours per employee|hours
+ltifr|Lost-time injury frequency rate (LTIFR)|per 1M hrs
+tri|Total recordable incidents|count
+nm|Near misses reported|count
+oi|Occupational illness cases|count
+ci|Community investment and donations|GHS
+cr|Community members reached|people
+gr|Grievances received|count
+grr|Grievances resolved|count
+dh|Discrimination and harassment cases|count
+wg|Gender pay gap|%
+wl|Leadership positions held by women or underrepresented groups|%`},
+{id:"risk",name:"Risk and compliance",intro:"Climate risk, audits, regulatory compliance and stakeholder engagement.",m:`cra|Sites or projects assessed for climate risk|count
+cfe|Financial exposure from climate risks|GHS
+ckp|Climate KPIs monitored (efficiency, renewables, reductions)|text
+mit|Mitigation and adaptation measures implemented|count
+af|ESG audit findings|count
+ev|ESG metrics externally verified|%
+au|ESG audits or reviews per year|count
+nc|ESG non-compliance incidents or fines|count
+cs|Operations or sites compliant with regulations|%
+ti|Regulatory inspections passed|count
+ts|ESG compliance training sessions|count
+se|ESG stakeholder engagements|count
+sc|Stakeholders consulted|count
+fb|Stakeholder feedback incorporated into ESG strategy|%
+cm|ESG-related complaints resolved|count
+rm|Monetary impact of ESG risks considered in reporting|GHS`},
+{id:"gov",name:"Governance",intro:"Board, ethics, supplier and target information.",m:`bs|Board size|people
+bi|Independent directors|%
+bw|Women on the board|%
+bd|Board diversity notes|text
+bm|ESG-related board meetings|count
+ev2|Ethics violations, investigations or anti-corruption incidents|count
+sa|Supplier ESG assessments completed|count
+ls|Local suppliers|%
+wb|Whistleblower reports received|count
+wbr|Whistleblower reports resolved|count
+kt|Key ESG targets|text`}
+].map(s=>({...s,m:s.m.split("\n").map(l=>{const [id,label,unit]=l.split("|");return{id,label,unit}})}));
+const TOPICS=["GHG emissions and climate change","Energy use and renewables","Water stewardship","Effluent and wastewater quality","Waste and circularity","Packaging and recyclability","Sustainable sourcing of raw materials","Biodiversity and land use","Occupational health and safety","Employee development and retention","Diversity, equity and inclusion","Community investment and engagement","Product quality and safety","Responsible marketing and consumption","Ethics and anti-corruption","Supplier ESG performance"];
+const GROUPS=["Internal management","Employees","Customers","Suppliers","Communities","Investors and lenders","Regulators"];
+let view="overview",year=2025,thr=3.5,group=GROUPS[0],db=null,saved=false,uid="u"+Math.random().toString(36).slice(2,9);
+const mem={settings:{},companies:{}},store={capture:{},materiality:{},schema:{}};let cid=null,forced=0;
+["capture","materiality","schema"].forEach(c=>Object.defineProperty(mem,c,{get(){return store[c][cid]||(store[c][cid]={})},set(v){store[c][cid]=v}}));
+const coName=()=>(mem.companies[cid]||{}).name||"";
+function resolveCo(){if(!mem.companies[cid]){let s=null;try{s=localStorage.getItem("cid")}catch(e){}cid=mem.companies[s]?s:Object.keys(mem.companies)[0]||null}
+ if(!cid){view="companies";forced=1}else if(forced){view="overview";forced=0}
+ const co=$("#co");co.innerHTML=Object.entries(mem.companies).map(([id,c])=>`<option value="${id}" ${id===cid?"selected":""}>${esc(c.name)}</option>`).join("")||"<option>No companies yet</option>"}
+function prog(id){const c=(store.schema[id]||{}).custom||{},ms=c.metrics||[],ids=new Set([...SECTIONS.flatMap(s=>s.m.map(m=>m.id)),...ms.map(m=>m.id)]);let n=0;Object.entries(store.capture[id]||{}).forEach(([k,d])=>{const [y,i]=k.split("_");if(+y===year&&ids.has(i)&&d.v!==undefined&&d.v!=="")n++});return{n,nm:ids.size,r:Object.keys(store.materiality[id]||{}).length}}
+function companies(){const ids=Object.keys(mem.companies);
+ return `<h2>Companies</h2><p class="lede">Each company has its own dashboard, data, custom data sets and materiality ratings. Progress shown for ${year}.</p>
+<div class="cards">${ids.map(id=>{const p=prog(id);return `<button class="card" data-co="${id}" ${id===cid?'style="border-color:var(--accent)"':""}><h3>${esc(mem.companies[id].name)}</h3><div class="bar"><i style="width:${p.nm?p.n/p.nm*100:0}%"></i></div><div class="hint">${p.n} of ${p.nm} captured, ${p.r} materiality response${p.r===1?"":"s"}</div></button>`}).join("")}</div>
+<h3 style="margin:22px 0 8px">New company</h3><div class="panel"><div class="row"><input id="nco" placeholder="Company name, e.g. Kasapreko" aria-label="Company name"><span></span><button class="btn" id="addco">Create dashboard</button></div></div>`}
+const UNITS=["count","%","GHS","USD","tCO₂e","t","kg","kWh","MWh","GJ","m³","litres","people","hours","text"];
+const uidn=()=>Math.random().toString(36).slice(2,8);
+const cust=()=>{const c=mem.schema.custom||{};return{sections:c.sections||[],metrics:c.metrics||[],topics:c.topics||[]}};
+const secs=()=>{const c=cust(),cm=id=>c.metrics.filter(x=>x.sec===id).map(x=>({...x,x:1}));return[...SECTIONS.map(s=>({...s,m:[...s.m,...cm(s.id)]})),...c.sections.map(s=>({...s,m:cm(s.id)}))]};
+const tops=()=>[...TOPICS.map((t,i)=>({key:String(i),t})),...cust().topics.map(x=>({key:"c"+x.id,t:x.t}))];
+function saveCust(c){put("schema","custom",c);render()}
+const addField=s=>`<h3 id="addfield" style="margin:22px 0 8px">Add a field to ${esc(s.name)}</h3><div class="panel"><div class="row"><input id="nf-l" placeholder="Field name, e.g. Diesel used" aria-label="Field name"><div><select id="nf-u" aria-label="Unit">${UNITS.map(u=>`<option value="${u}">${u==="text"?"Text (free entry)":u}</option>`).join("")}<option value="__o">Other…</option></select><input id="nf-uo" placeholder="Type your unit" aria-label="Custom unit" hidden style="margin-top:6px"></div><button class="btn" data-add="m:${s.id}">Add field</button></div></div><datalist id="units">${UNITS.map(u=>`<option value="${u}">`).join("")}</datalist>`;
+function build(){const c=cust(),r=(n,d,sub)=>`<div class="row"><div>${esc(n)}<div class="hint">${esc(sub)}</div></div><span></span><button class="btn alt" data-del="${d}">Remove</button></div>`;
+ const rows=[...c.sections.map(s=>r(s.name,"s:"+s.id,"Data set, "+c.metrics.filter(m=>m.sec===s.id).length+" fields")),...c.metrics.map(m=>r(m.label,"m:"+m.id,"Field in "+((secs().find(s=>s.id===m.sec)||{}).name||"a section")+", unit "+m.unit)),...c.topics.map(t=>r(t.t,"t:"+t.id,"Materiality topic"))];
+ return `<h2>Add data sets</h2><p class="lede">Create a new data set (a section of fields) or a new materiality topic. Fields can also be added at the bottom of any existing section. Removing something hides it but keeps figures already entered.</p>
+<h3 style="margin-bottom:8px">New data set</h3><div class="panel"><div class="row"><input id="ns-n" placeholder="Name, e.g. Supply chain" aria-label="Data set name"><input id="ns-i" placeholder="Short description (optional)" aria-label="Description"><button class="btn" data-add="s">Create data set</button></div></div>
+<h3 style="margin:22px 0 8px">New materiality topic</h3><div class="panel"><div class="row"><input id="nt-n" placeholder="Topic, e.g. Cold-chain emissions" aria-label="Topic"><span></span><button class="btn" data-add="t">Add topic</button></div></div>
+<h3 style="margin:22px 0 8px">Your additions</h3>${rows.length?`<div class="panel">${rows.join("")}</div>`:`<div class="empty">Nothing added yet.</div>`}`}
+function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2600)}
+function put(c,id,d){mem[c][id]=d;if(db)db.collection(c==="companies"?c:c+"~"+cid).doc(id).set(d).catch(e=>toast("Not saved: "+(e.message||e.code)))}
+let rt;function rerender(){const a=document.activeElement;if(a&&/INPUT|SELECT/.test(a.tagName)&&$("#main").contains(a)){clearTimeout(rt);rt=setTimeout(rerender,800);return}render()}
+const heard={};
+function listen(c,cn){db.collection(c==="companies"?c:c+"~"+cn).onSnapshot(s=>{const o={};s.docs.forEach(d=>o[d.id]=d.data());if(c==="companies"){mem.companies=o;Object.keys(o).forEach(id=>{if(!heard[id]){heard[id]=1;["capture","materiality","schema"].forEach(x=>listen(x,id))}})}else store[c][cn]=o;rerender()},()=>{})}
+async function init(){
+ try{if(window.claude){db=await claude.use("db");const u=await claude.use("user");if(u&&u.id){const i=await u.id();if(i)uid=i}}}catch(e){db=null}
+ saved=!!db;if(db)listen("companies");render()}
+const filled=(k)=>{const v=(mem.capture[k]||{}).v;return v!==undefined&&v!==""};
+const secCount=s=>s.m.filter(m=>filled(year+"_"+m.id)).length;
+const num=k=>{const v=parseFloat((mem.capture[k]||{}).v);return isNaN(v)?null:v};
+const fmt=n=>n.toLocaleString(undefined,{maximumFractionDigits:2});
+function renderNav(){
+ const items=[["overview","Overview",""],...secs().map(s=>[s.id,s.name,secCount(s)+"/"+s.m.length])];
+ const mt=[["survey","Rate topics",""],["matrix","Matrix and ranking",Object.keys(mem.materiality).length+" resp."]];
+ const b=([id,n,c])=>`<button class="nav" data-v="${id}" ${view===id?'aria-current="page"':""}><span>${n}</span><small>${c}</small></button>`;
+ $("#nav").innerHTML=`<div class="brand">Cleanearth</div><div class="sub">${esc(coName()||"ESG Reporting Hub")}</div><div class="grp">Workspace</div>${b(["companies","All companies",Object.keys(mem.companies).length+""])}<div class="grp">Data capture</div>${items.map(b).join("")}<div class="grp">Materiality</div>${mt.map(b).join("")}<div class="grp">Customize</div>${b(["build","Add data sets",""])}`}
+function overview(){
+ const tot=secs().reduce((a,s)=>a+s.m.length,0),done=secs().reduce((a,s)=>a+secCount(s),0);
+ const g=["ghg1","ghg2","ghg3"].map(i=>num(year+"_"+i)),gs=g.some(x=>x!==null)?g.reduce((a,x)=>a+(x||0),0):null;
+ return `<h2>${esc(coName())}: ${year}</h2><p class="lede">Track how much of the reporting data is in, then open a section to enter figures. Entries save automatically for the selected year.</p>
+ <div class="cards"><div class="card"><div class="hint">Data points captured</div><div class="big">${done}/${tot}</div><div class="bar"><i style="width:${done/tot*100}%"></i></div></div>
+ <div class="card"><div class="hint">Total GHG emissions (Scope 1+2+3)</div><div class="big">${gs===null?"–":fmt(gs)}</div><div class="hint">tCO₂e</div></div>
+ <div class="card"><div class="hint">Materiality responses</div><div class="big">${Object.keys(mem.materiality).length}</div></div></div>
+ <div class="cards">${secs().map(s=>`<button class="card" data-v="${s.id}"><h3>${s.name}</h3><div class="bar"><i style="width:${secCount(s)/s.m.length*100}%"></i></div><div class="hint">${secCount(s)} of ${s.m.length} captured</div></button>`).join("")}</div>
+ <button class="btn" id="exp">Export all data (CSV)</button>`}
+function capture(s){
+ return `<h2>${s.name}</h2><p class="lede">${s.intro} Add a source or note for audit trail. Previous-year values show beneath each field to support baselines.</p><p><button class="btn alt" data-jump="1">Add a field to this data set</button></p>
+ <div class="panel">${s.m.map(m=>{const k=year+"_"+m.id,d=mem.capture[k]||{},isT=m.unit==="text",p=(mem.capture[(year-1)+"_"+m.id]||{}).v;
+ let h="";if(!isT&&p!==undefined&&p!==""){h=`${year-1}: ${esc(p)}`;const c=parseFloat(d.v),q=parseFloat(p);if(!isNaN(c)&&!isNaN(q)&&q!==0){const x=(c-q)/Math.abs(q)*100;h+=` <span class="${x<=0?"up":"down"}">(${x>0?"+":""}${x.toFixed(1)}%)</span>`}}
+ return `<div class="row"><div><label for="f${k}">${esc(m.label)}</label>${m.x?` <button class="lnk" data-del="m:${m.id}">Remove</button>`:""}</div><div><div class="inp"><input id="f${k}" data-k="${k}" data-f="v" type="${isT?"text":"number"}" step="any" value="${esc(d.v)}">${isT?"":`<span class="unit">${m.unit}</span>`}</div><div class="hint">${h}</div></div><input data-k="${k}" data-f="n" placeholder="Source or note" aria-label="Source for ${esc(m.label)}" value="${esc(d.n)}"></div>`}).join("")}</div>${addField(s)}`}
+function survey(){
+ const mine=mem.materiality[uid]||{s:{}};if(mine.group)group=mine.group;
+ const sel=(i,j,v)=>`<select data-t="${i}" data-j="${j}" aria-label="${j?"Business impact":"Stakeholder importance"}"><option value="">–</option>${[1,2,3,4,5].map(n=>`<option value="${n}" ${v==n?"selected":""}>${n}${n==1?" Low":n==5?" Very high":""}</option>`).join("")}</select>`;
+ return `<h2>Rate material topics</h2><p class="lede">Rate each topic from 1 to 5. Leave a topic blank to skip it. Each person’s ratings are saved as one response and combined in the matrix.</p>
+ <div class="group"><label for="grp">Responding as</label><select id="grp">${GROUPS.map(g=>`<option ${g===group?"selected":""}>${g}</option>`).join("")}</select></div>
+ <div class="panel"><div class="survey"><div class="h">Topic</div><div class="h">Importance to stakeholders</div><div class="h">Impact on the business</div>
+ ${tops().map(({key,t})=>{const v=mine.s[key]||[];return `<div class="t">${esc(t)}</div>${sel(key,0,v[0])}${sel(key,1,v[1])}`}).join("")}</div></div>
+ <p><button class="btn" id="sv">Save my ratings</button></p>`}
+function scores(){
+ const R=Object.values(mem.materiality);
+ return tops().map(({key,t},i)=>{let a=[],b=[];R.forEach(r=>{const v=(r.s||{})[key];if(v&&v[0])a.push(+v[0]);if(v&&v[1])b.push(+v[1])});
+ const av=x=>x.length?x.reduce((p,q)=>p+q,0)/x.length:null;return{t,i,s:av(a),b:av(b)}}).filter(x=>x.s!==null&&x.b!==null)}
+function matrix(){
+ const R=Object.values(mem.materiality),sc=scores();
+ if(!sc.length)return `<h2>Materiality matrix</h2><div class="empty">No ratings yet. Open “Rate topics”, complete the survey and save to see the matrix.</div>`;
+ const gc={};R.forEach(r=>{gc[r.group]=(gc[r.group]||0)+1});
+ const px=v=>60+(v-1)/4*430,py=v=>380-(v-1)/4*350,mat=x=>x.s>=thr&&x.b>=thr;
+ const rk=[...sc].sort((p,q)=>(q.s+q.b)-(p.s+p.b));
+ let g=`<rect x="${px(thr)}" y="30" width="${490-px(thr)}" height="${py(thr)-30}" fill="var(--gold)" opacity=".14"/>`;
+ for(let v=1;v<=5;v++)g+=`<line x1="${px(v)}" y1="30" x2="${px(v)}" y2="380" stroke="var(--line)"/><line x1="60" y1="${py(v)}" x2="490" y2="${py(v)}" stroke="var(--line)"/><text x="${px(v)}" y="398" text-anchor="middle" font-size="11" fill="var(--mute)">${v}</text><text x="48" y="${py(v)+4}" text-anchor="end" font-size="11" fill="var(--mute)">${v}</text>`;
+ g+=`<line x1="${px(thr)}" y1="30" x2="${px(thr)}" y2="380" stroke="var(--gold)" stroke-dasharray="4 3"/><line x1="60" y1="${py(thr)}" x2="490" y2="${py(thr)}" stroke="var(--gold)" stroke-dasharray="4 3"/>`;
+ g+=sc.map(x=>`<g><circle cx="${px(x.b)}" cy="${py(x.s)}" r="11" fill="${mat(x)?"var(--gold)":"var(--accent)"}"><title>${esc(x.t)}</title></circle><text x="${px(x.b)}" y="${py(x.s)+4}" text-anchor="middle" font-size="11" font-weight="600" fill="${mat(x)?"#12302F":"var(--accent-ink)"}">${x.i+1}</text></g>`).join("");
+ g+=`<text x="275" y="418" text-anchor="middle" font-size="12" fill="var(--mute)">Impact on the business</text><text transform="translate(14 205) rotate(-90)" text-anchor="middle" font-size="12" fill="var(--mute)">Importance to stakeholders</text>`;
+ return `<h2>Materiality matrix</h2><p class="lede">${R.length} response${R.length>1?"s":""} (${Object.entries(gc).map(([k,v])=>k+": "+v).join(", ")}). Topics at or above the threshold on both axes are treated as material.</p>
+ <div class="group"><label for="thr">Materiality threshold: <b id="tv">${thr}</b></label><input id="thr" type="range" min="2" max="4.5" step="0.5" value="${thr}"> <button class="btn alt" id="expm">Export ranking (CSV)</button></div>
+ <div class="mat"><svg viewBox="0 0 500 430" role="img" aria-label="Materiality matrix">${g}</svg>
+ <ol class="rank" style="padding:0">${rk.map(x=>`<li><b>${x.i+1}</b><span>${esc(x.t)}<div class="hint">Stakeholders ${x.s.toFixed(1)} · Business ${x.b.toFixed(1)}</div></span>${mat(x)?'<span class="tag">Material</span>':""}</li>`).join("")}</ol></div>`}
+function render(){
+ resolveCo();renderNav();const m=$("#main");const s=secs().find(x=>x.id===view);
+ $("#note").innerHTML=saved?"":`<div class="note">Preview mode: entries are kept in this browser tab only and are not saved. Open the published artifact to save data.</div>`;
+ m.innerHTML=view==="companies"?companies():view==="overview"?overview():s?capture(s):view==="build"?build():view==="survey"?survey():matrix()}
+async function save(name,rows){
+ const csv=rows.map(r=>r.map(c=>`"${String(c??"").replace(/"/g,'""')}"`).join(",")).join("\n");
+ try{const d=await claude.use("downloads");if(!d)throw 0;await d.save({filename:name,data:csv})}catch(e){toast("Download is not available here")}}
+document.addEventListener("click",e=>{
+ const oc=e.target.closest("[data-co]");if(oc){cid=oc.dataset.co;try{localStorage.setItem("cid",cid)}catch(x){}view="overview";render();scrollTo(0,0);return}
+ if(e.target.id==="addco"){const n=$("#nco").value.trim();if(!n)return toast("Enter a company name");const id="c"+uidn();put("companies",id,{name:n});cid=id;try{localStorage.setItem("cid",id)}catch(x){}view="overview";render();return}
+ if(e.target.dataset.jump){$("#addfield").scrollIntoView({behavior:"smooth"});$("#nf-l").focus();return}
+ const ad=e.target.closest("[data-add]");if(ad){const [k,sid]=ad.dataset.add.split(":"),c=JSON.parse(JSON.stringify(cust()));
+  if(k==="m"){const l=$("#nf-l").value.trim();if(!l)return toast("Enter a field name");c.metrics.push({id:"x"+uidn(),sec:sid,label:l,unit:($("#nf-u").value==="__o"?$("#nf-uo").value.trim():$("#nf-u").value)||"count"})}
+  if(k==="s"){const n=$("#ns-n").value.trim();if(!n)return toast("Enter a name");const id="s"+uidn();c.sections.push({id,name:n,intro:$("#ns-i").value.trim()||"Custom data set."});view=id}
+  if(k==="t"){const n=$("#nt-n").value.trim();if(!n)return toast("Enter a topic");c.topics.push({id:uidn(),t:n})}
+  saveCust(c);return}
+ const dl=e.target.closest("[data-del]");if(dl){const [k,id]=dl.dataset.del.split(":"),c=JSON.parse(JSON.stringify(cust()));
+  if(k==="m")c.metrics=c.metrics.filter(x=>x.id!==id);
+  if(k==="t")c.topics=c.topics.filter(x=>x.id!==id);
+  if(k==="s"){c.sections=c.sections.filter(x=>x.id!==id);c.metrics=c.metrics.filter(x=>x.sec!==id);if(view===id)view="build"}
+  saveCust(c);return}
+ const v=e.target.closest("[data-v]");if(v){view=v.dataset.v;render();scrollTo(0,0);return}
+ if(e.target.id==="exp"){const rows=[["Client","Year","Section","Metric","Value","Unit","Source or note"]];
+  Object.entries(mem.capture).forEach(([k,d])=>{const [y,id]=k.split("_");secs().forEach(s=>{const m=s.m.find(x=>x.id===id);if(m&&d.v!==undefined&&d.v!=="")rows.push([coName(),y,s.name,m.label,d.v,m.unit==="text"?"":m.unit,d.n||""])})});
+  rows.length>1?save("esg-data.csv",rows):toast("No data to export yet")}
+ if(e.target.id==="expm"){save("materiality-ranking.csv",[["Topic","Stakeholder importance","Business impact","Material"],...scores().map(x=>[x.t,x.s.toFixed(2),x.b.toFixed(2),x.s>=thr&&x.b>=thr?"Yes":"No"])])}
+ if(e.target.id==="sv"){const o={group:$("#grp").value,s:{},t:Date.now()};
+  document.querySelectorAll("select[data-t]").forEach(el=>{if(el.value){(o.s[el.dataset.t]=o.s[el.dataset.t]||[])[+el.dataset.j]=+el.value}});
+  Object.keys(o.s).forEach(k=>{o.s[k]=[o.s[k][0]||0,o.s[k][1]||0]});
+  put("materiality",uid,o);renderNav();toast("Ratings saved")}
+});
+document.addEventListener("change",e=>{const t=e.target;
+ if(t.dataset&&t.dataset.k){const d={...(mem.capture[t.dataset.k]||{})};d[t.dataset.f]=t.value;put("capture",t.dataset.k,d);renderNav()}
+ if(t.id==="nf-u")$("#nf-uo").hidden=t.value!=="__o";
+ if(t.id==="year"){year=+t.value;render()}
+ if(t.id==="co"){cid=t.value;try{localStorage.setItem("cid",cid)}catch(e){}view="overview";render()}});
+document.addEventListener("input",e=>{if(e.target.id==="thr"){thr=+e.target.value;render();const r=$("#thr");r&&r.focus()}});
+$("#year").innerHTML=[2021,2022,2023,2024,2025,2026,2027].map(y=>`<option ${y===year?"selected":""}>${y}</option>`).join("");
+render();init();
+</script>
+</body>
+</html>
